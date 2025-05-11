@@ -1,0 +1,22 @@
+from fastapi import FastAPI
+from database import engine, Base
+from routers import (
+    racer_router,
+    emergency_contact_router,
+    document_router,
+    event_router,
+    registration_router,
+    leaderboard_router,
+)
+
+# create all tables
+Base.metadata.create_all(bind=engine)
+
+app = FastAPI(title="RevUp Racing API")
+
+app.include_router(racer_router.router, prefix="/racers", tags=["racers"])
+app.include_router(emergency_contact_router.router, prefix="/contacts", tags=["emergency_contacts"])
+app.include_router(document_router.router, prefix="/documents", tags=["documents"])
+app.include_router(event_router.router, prefix="/events", tags=["events"])
+app.include_router(registration_router.router, prefix="/registrations", tags=["registrations"])
+app.include_router(leaderboard_router.router, prefix="/leaderboard", tags=["leaderboard"])
