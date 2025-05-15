@@ -1,5 +1,6 @@
 from fastapi import FastAPI
 from database import engine, Base
+from fastapi.middleware.cors import CORSMiddleware
 from routers import (
     racer_router,
     emergency_contact_router,
@@ -14,6 +15,14 @@ from routers import (
 Base.metadata.create_all(bind=engine)
 
 app = FastAPI(title="RevUp Racing API")
+
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],  # or ["http://localhost:5173"] for Vite
+    allow_credentials=True,
+    allow_methods=["*"],  # or ["POST", "GET", "OPTIONS"]
+    allow_headers=["*"],
+)
 
 app.include_router(racer_router.router, prefix="/racers", tags=["racers"])
 app.include_router(emergency_contact_router.router, prefix="/contacts", tags=["emergency_contacts"])

@@ -1,12 +1,13 @@
-import enum
 from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum
 from sqlalchemy.sql import func
 from sqlalchemy.orm import relationship
 from database import Base
+import enum
 
 class DocumentType(enum.Enum):
     national_id = "national_id"
     passport = "passport"
+    image = "image"
 
 class RacerDocument(Base):
     __tablename__ = "racer_documents"
