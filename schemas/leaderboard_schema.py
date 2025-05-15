@@ -1,3 +1,4 @@
+# schemas/leaderboard_schema.py
 from pydantic import BaseModel
 from typing import Optional
 from datetime import time
@@ -8,6 +9,7 @@ class LeaderboardBase(BaseModel):
     points: int
     best_lap_time: time
     total_wins: int
+    total_podium_finishes: int = 0    # <-- default, so it's not required
 
 class LeaderboardCreate(LeaderboardBase):
     pass
@@ -17,6 +19,7 @@ class LeaderboardUpdate(BaseModel):
     points: Optional[int]
     best_lap_time: Optional[time]
     total_wins: Optional[int]
+    total_podium_finishes: Optional[int]
 
 class Leaderboard(LeaderboardBase):
     id: int

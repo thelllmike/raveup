@@ -1,21 +1,30 @@
+# schemas/registration_schema.py
 from pydantic import BaseModel
-from typing import Literal
+from typing import Optional
+from enum import Enum
 from datetime import datetime
+
+class RegistrationStatus(str, Enum):
+    registered = "registered"
+    payment_pending = "payment_pending"
+    cancelled = "cancelled"
 
 class RegistrationBase(BaseModel):
     racer_id: int
     event_id: int
-    status: Literal['registered', 'payment_pending', 'cancelled'] = 'registered'
+    status: RegistrationStatus = RegistrationStatus.registered
 
 class RegistrationCreate(RegistrationBase):
     pass
 
 class RegistrationUpdate(BaseModel):
-    status: Literal['registered', 'payment_pending', 'cancelled']
+    status: Optional[RegistrationStatus]
 
 class Registration(RegistrationBase):
     id: int
-    registration_date: datetime
+    created_at: datetime
+    updated_at: datetime
 
     class Config:
         orm_mode = True
+        use_enum_values = True

@@ -1,3 +1,4 @@
+# crud/leaderboard_crud.py
 from sqlalchemy.orm import Session
 from models.leaderboard import Leaderboard
 from schemas.leaderboard_schema import LeaderboardCreate, LeaderboardUpdate
@@ -7,6 +8,15 @@ def get_entry(db: Session, entry_id: int):
 
 def get_entries(db: Session, skip: int = 0, limit: int = 100):
     return db.query(Leaderboard).offset(skip).limit(limit).all()
+
+def get_entries_by_racer(db: Session, racer_id: int, skip: int = 0, limit: int = 100):
+    return (
+        db.query(Leaderboard)
+          .filter(Leaderboard.racer_id == racer_id)
+          .offset(skip)
+          .limit(limit)
+          .all()
+    )
 
 def create_entry(db: Session, ent: LeaderboardCreate):
     db_ent = Leaderboard(**ent.dict())
