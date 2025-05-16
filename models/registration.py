@@ -29,3 +29,4 @@ class Registration(Base):
 
     # racer = relationship("Racer", back_populates="registrations")
     # event = relationship("Event", back_populates="registrations")
+    event = relationship("Event", back_populates="registrations")

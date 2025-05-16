@@ -1,8 +1,12 @@
 # schemas/registration_schema.py
 from pydantic import BaseModel
-from typing import Optional
+from typing import Optional, TYPE_CHECKING, List
 from enum import Enum
 from datetime import datetime
+
+# avoid circular import at runtime
+if TYPE_CHECKING:
+    from schemas.event_schema import EventOut
 
 class RegistrationStatus(str, Enum):
     registered = "registered"
@@ -28,3 +32,10 @@ class Registration(RegistrationBase):
     class Config:
         orm_mode = True
         use_enum_values = True
+
+class RegistrationWithEvent(Registration):
+    # string annotation prevents circular import at runtime
+    event: "EventOut"
+
+    class Config(Registration.Config):
+        pass

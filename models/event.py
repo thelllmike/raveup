@@ -7,8 +7,10 @@ class Event(Base):
 
     id = Column(Integer, primary_key=True, index=True)
     name = Column(String(100), nullable=False)
-    event_date = Column(Date, nullable=False)
+    date = Column("event_date", Date, nullable=False)
     location = Column(String(100), nullable=False)
     category = Column(String(50), nullable=False)
+
+    registrations = relationship("Registration", back_populates="event")
 
     # registrations = relationship("Registration", back_populates="event", cascade="all, delete")

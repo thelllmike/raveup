@@ -24,3 +24,5 @@ class EventOut(EventBase):
 
     class Config:
         orm_mode = True
+
+EventOut.model_rebuild()
