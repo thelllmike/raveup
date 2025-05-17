@@ -10,6 +10,7 @@ from routers import (
     leaderboard_router,
         auth_router,
         race_router,
+        snapshot_router,
 )
 
 # create all tables
@@ -33,4 +34,5 @@ app.include_router(registration_router.router, prefix="/registrations", tags=["r
 app.include_router(leaderboard_router.router, prefix="/leaderboard", tags=["leaderboard"])
 app.include_router(auth_router.router)
 app.include_router(race_router.router, prefix="/races", tags=["races"])
+app.include_router(snapshot_router.router)
 # app.include_router(auth_router.router, prefix="/auth", tags=["auth"])
